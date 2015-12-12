@@ -10,7 +10,7 @@ var AddToCart = React.createClass({
     render() {
         return (
             <div>
-                <button onClick={this.handleClick}>Dodaj u korpu</button>
+                <span><button  className="btn btn-success" onClick={this.handleClick}>Dodaj u korpu</button></span>
             </div>
         );
     }

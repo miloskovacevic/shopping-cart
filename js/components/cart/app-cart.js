@@ -5,6 +5,9 @@ var RemoveFromCart = require('./app-removefromcart');
 var Increase = require('./app-increase');
 var Decrease = require('./app-decrease');
 
+var Link = require('react-router').Link;
+var StoreWatchMixin = require('./../../mixins/StoreWatchMixin');
+
 function cartItems(){
     return {
         items: AppStore.getCart()
@@ -12,17 +15,8 @@ function cartItems(){
 }
 
 var AppCart = React.createClass({
-    getInitialState() {
-        return cartItems();
-    },
+    mixins: [StoreWatchMixin(cartItems)],
 
-    componentWillMount(){
-        AppStore.addChangeListener(this._onChange)
-    },
-
-    _onChange(){
-        this.setState(cartItems());
-    },
 
     render() {
         var total = 0;
@@ -44,24 +38,27 @@ var AppCart = React.createClass({
         });
 
         return (
-            <table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Item</th>
-                    <th>Qty</th>
-                    <th></th>
-                    <th>Subtotal</th>
-                  </tr>
-                </thead>
-                <tbody>{cartItems}</tbody>
-                <tfoot>
-                  <tr>
-                    <td colSpan="4" className="text-right">Total</td>
-                    <td>{total}</td>
-                  </tr>
-                </tfoot>
-            </table>
+            <div>
+                <table className="table table-hover">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th></th>
+                        <th>Subtotal</th>
+                      </tr>
+                    </thead>
+                    <tbody>{cartItems}</tbody>
+                    <tfoot>
+                      <tr>
+                        <td colSpan="4" className="text-right">Total</td>
+                        <td>{total}</td>
+                      </tr>
+                    </tfoot>
+                </table>
+                <Link to="Catalog" className="btn btn-success">Get Back</Link>
+            </div>
         );
     }
 });

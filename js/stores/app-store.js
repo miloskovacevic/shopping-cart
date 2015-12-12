@@ -12,7 +12,7 @@ for(var i = 1; i<9; i++){
         'title':'Widget #' + i,
         'summary':'This is an awesome widget',
         'description':'Lorem ipsum sin doloret amet consencitur',
-        'img': '/assets/product.png',
+        'img': '/img/shopping-icon.png',
         'cost':i
     });
 }
@@ -53,6 +53,18 @@ function _addItem(item){
     }
 }
 
+function _cartTotals(){
+    var qty = 0, total = 0;
+    _cartItems.forEach(function (item) {
+       qty += item.qty;
+        total += item.qty * item.cost;
+    });
+    return {
+        'qty': qty,
+        'total': total
+    };
+}
+
 var AppStore = merge(EventEmitter.prototype, {
     emitChange: function(){
         this.emit(CHANGE_EVENT)
@@ -70,6 +82,9 @@ var AppStore = merge(EventEmitter.prototype, {
     },
     getCatalog: function () {
         return _catalog;
+    },
+    getCartTotals: function () {
+        return _cartTotals();
     },
 
     dispatcherIndex: AppDispatcher.register(function(payload){
