@@ -1,10 +1,13 @@
 var React = require('react');
+var Header = require('./header/app-header');
 
 var Template = React.createClass({
     render(){
         return(
-            <div>Template</div>
-
+            <div className="container">
+              <Header />
+              {this.props.children}
+            </div>
         );
     }
 });
